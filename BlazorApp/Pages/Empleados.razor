@@ -1,0 +1,80 @@
+﻿
+@page "/Empleados"
+
+@using BlazorCrud.Shared;
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using BlazorApp.Service;
+@inject SweetAlertService Swal;
+@inject IEmpleadosServer empleadoService;
+
+<h3>Empleados</h3>
+<a class="btn btn-success btn-sm mb-3" href="Empleado">Nuevo Empleado</a>
+
+<table class ="table">
+	<thead>
+		<tr>
+			<th align="center">Nombre Completo</th>
+			<th align="center">Departamento</th>
+			<th align ="center">Sueldo</th>
+			<th align="center">Fecha Contrato</th>
+			<th align="center"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@if(listaEmpleado == null)
+		{
+			<tr>
+				<td colspan="5" align="center">No se encontraron datos</td>
+			</tr>
+		}
+		else
+		{
+			@foreach(var item in listaEmpleado)
+			{
+				<tr>
+					<td align="center">@item.NombreCompleto</td>
+					<td align="center">@item.Departamento!.Nombre</td>
+					<td align="center">$@item.Sueldo</td>
+					<td align="center">@item.FechaContrato.ToString("dd/MM/yyyy")</td>
+					<td align="center">
+						<a class="btn btn-primary btn-sm mb-3 oi oi-pencil" href="Empleado "></a>
+						<a class="btn btn-danger btn-sm mb-3 oi oi-trash" @onclick="(()=> Eliminar(item.IdEmpleado))"></a>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
+
+@code {
+	List<EmpleadoDTO>? listaEmpleado = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		listaEmpleado = await empleadoService.Listar();
+
+	} 
+	private async Task Eliminar(int id)
+	{
+		var Resultado = await Swal.FireAsync(new SweetAlertOptions
+			{
+				Title = "Eliminar Empleado",
+				Text = "Deseas eliminar el empleado?",
+				Icon = SweetAlertIcon.Question,
+				ShowCancelButton = true
+			});
+
+		if (Resultado.IsConfirmed)
+		{
+			var eliminado = await empleadoService.Eliminar(id);
+			if (eliminado==1)
+			{
+				listaEmpleado = listaEmpleado!.FindAll(e => e.IdEmpleado != id);
+			}
+		}
+	}
+	private async Task Editar(EmpleadoDTO empleado)
+	{
+		
+	}
+}
