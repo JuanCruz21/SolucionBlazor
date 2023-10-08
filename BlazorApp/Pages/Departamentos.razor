@@ -1,0 +1,49 @@
+﻿@page "/Departamentos"
+
+@using BlazorCrud.Shared;
+@using BlazorApp.Service;
+@inject IDepartamentoServices departamentoService;
+
+<h3>Departamentos</h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th align="center">Id Departamento</th>
+			<th align="center">Nombre Departamento</th>
+			<th align="center"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (departamentolista == null)
+		{
+			<tr>
+				<td colspan="5" align="center">No se encontraron datos</td>
+			</tr>
+		}
+		else
+		{
+			@foreach (var item in departamentolista)
+			{
+				<tr>
+					<td align="center">@item.IdDepartamento</td>
+					<td align="center">@item.Nombre</td>
+					<td align="center">
+						<a class="btn btn-primary btn-sm mb-3 oi oi-pencil"></a>
+						<a class="btn btn-danger btn-sm mb-3 oi oi-trash"></a>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
+
+
+@code {
+	List<DepartamentoDTO>? departamentolista = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		departamentolista = await departamentoService.Lista();
+	}
+}

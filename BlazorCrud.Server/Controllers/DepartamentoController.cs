@@ -33,11 +33,12 @@ namespace BlazorCrud.Server.Controllers
                         IdDepartamento = item.IdDepartamento,
                         Nombre = item.Nombre
                     });
-                    responseApi.Exito = 0;
+                    responseApi.Exito = true;
                     responseApi.Datos = listaDepartamentoDTO;
                 }
             } catch (Exception ex)
             {
+                responseApi.Exito = false;
                 responseApi.Message = ex.Message;
             }
             return Ok(responseApi);

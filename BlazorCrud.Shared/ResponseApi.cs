@@ -8,12 +8,8 @@ namespace BlazorCrud.Shared
 {
     public class ResponseApi<T>
     {
-        public int Exito { get; set;}
-        public T Datos { get; set;}
+        public bool Exito { get; set;} = false;
+        public T? Datos { get; set;}
         public string? Message { get; set;}
-        public ResponseApi() 
-        {
-            Exito = 0;
-        }
     }
 }

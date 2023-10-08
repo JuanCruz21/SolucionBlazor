@@ -8,7 +8,7 @@
 @inject IDepartamentoServices departamentoServices;
 @inject NavigationManager navegacion;
 
-<h3>@titulo</h3>
+<h3>@titulo  @idEmpleadoEditar</h3>
 
 <EditForm Model="empleado" OnValidSubmit="OnValidSubmit">
 	<DataAnnotationsValidator></DataAnnotationsValidator>
@@ -57,7 +57,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		if(idEmpleadoEditar != null)
+		if(idEmpleadoEditar > 0)
 		{
 			empleado = await empleadoService.Buscar(idEmpleadoEditar);
 			btnTexto = "Actualizar Empleado";
@@ -71,7 +71,7 @@
 		}
 		listaDepartamentos = await departamentoServices.Lista();
 	}
-
+	
 	private async Task OnValidSubmit()
 	{
 		int idDevuelto = 0;

@@ -42,7 +42,7 @@ namespace BlazorCrud.Server.Controllers
                         }
                         
                     });
-                    responseApi.Exito = 1;
+                    responseApi.Exito = true;
                     responseApi.Datos = listaEmpleadosDTO;
                 }
             } 
@@ -71,12 +71,12 @@ namespace BlazorCrud.Server.Controllers
                     empleadoDTO.FechaContrato = dbEmpleado.FechaContrato;
                     empleadoDTO.Sueldo = dbEmpleado.Sueldo;
 
-                    responseApi.Exito = 1;
+                    responseApi.Exito = true;
                     responseApi.Datos = empleadoDTO;
                 }
                 else
                 {
-                    responseApi.Exito = 0;
+                    responseApi.Exito = false;
                     responseApi.Message = "No encontrado";
                 }
                     
@@ -106,12 +106,12 @@ namespace BlazorCrud.Server.Controllers
                 await _dbContext.SaveChangesAsync();
                 if (dbEmpleado.IdEmpleado != 0)
                 {
-                    responseApi.Exito = 1;
+                    responseApi.Exito = true;
                     responseApi.Datos = dbEmpleado.IdEmpleado;
                 }
                 else 
                 { 
-                    responseApi.Exito = 0; 
+                    responseApi.Exito = false; 
                     responseApi.Message = "No se guardo"; 
                 }
             }
@@ -140,13 +140,13 @@ namespace BlazorCrud.Server.Controllers
                     _dbContext.Empleados.Update(dbEmpleado);
                     await _dbContext.SaveChangesAsync();
 
-                    responseApi.Exito = 1;
+                    responseApi.Exito = true;
                     responseApi.Message = "Se actualizo";
                     responseApi.Datos = dbEmpleado.IdEmpleado;
                 }
                 else
                 {
-                    responseApi.Exito = 0;
+                    responseApi.Exito = false;
                     responseApi.Message = "No se guardo";
                 }
             }
@@ -172,13 +172,13 @@ namespace BlazorCrud.Server.Controllers
                     _dbContext.Empleados.Remove(dbEmpleado);
                     await _dbContext.SaveChangesAsync();
 
-                    responseApi.Exito = 1;
+                    responseApi.Exito = true;
                     responseApi.Message = "Se Elimino correctamente";
                     responseApi.Datos = dbEmpleado.IdEmpleado;
                 }
                 else
                 {
-                    responseApi.Exito = 0;
+                    responseApi.Exito = false;
                     responseApi.Message = "No se elimino, porqué no se encontro el empleado";
                 }
             }

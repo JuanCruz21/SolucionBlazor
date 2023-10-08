@@ -4,6 +4,6 @@ namespace BlazorApp.Service
 {
     public interface IDepartamentoServices
     {
-        Task<List<DepartamentoDTO>>Lista();
+        Task<List<DepartamentoDTO>> Lista();
     }
 }

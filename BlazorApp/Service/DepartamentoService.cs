@@ -14,15 +14,16 @@ namespace BlazorApp.Service
 
         public async Task<List<DepartamentoDTO>> Lista()
         {
-            var result = await _http.GetFromJsonAsync<ResponseApi<List<DepartamentoDTO>>>("api/Departamento/Lista");
-            if (result!.Exito == 1)
-            {
-                return result.Datos;
-            }
-            else
-            {
-                throw new Exception(result.Message);
-            }
+			var result = await _http.GetFromJsonAsync<ResponseApi<List<DepartamentoDTO>>>("api/Departamento/Lista");
+				
+			if (result!.Exito)
+			{
+			    return result.Datos!;
+			}
+			else
+			{
+				throw new Exception(result.Message);
+			}
         }
     }
 }

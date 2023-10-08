@@ -16,7 +16,7 @@ namespace BlazorApp.Service
             var result = await _http.PutAsJsonAsync($"api/Empleados/Actuualizar/{empleado.IdEmpleado}",empleado);
             var response = await result.Content.ReadFromJsonAsync<ResponseApi<EmpleadoDTO>>();
 
-            if (response.Exito == 1)
+            if (response!.Exito)
             {
                 return response.Datos.IdEmpleado;
             }
@@ -30,7 +30,7 @@ namespace BlazorApp.Service
         {
             var result = await _http.GetFromJsonAsync<ResponseApi<EmpleadoDTO>>($"api/Empleados/Buscar/{id}");
 
-            if (result.Exito == 1)
+            if (result!.Exito)
             {
                 return result.Datos;
             }
@@ -45,9 +45,9 @@ namespace BlazorApp.Service
             var result = await _http.DeleteAsync($"api/Empleados/Eliminar/{id}");
             var response = await result.Content.ReadFromJsonAsync<ResponseApi<EmpleadoDTO>>();
 
-            if (response.Exito == 1)
+            if (response!.Exito)
             {
-                return response.Exito;
+                return response.Datos.IdEmpleado;
             }
             else
             {
@@ -59,7 +59,7 @@ namespace BlazorApp.Service
         {
             var result = await _http.PostAsJsonAsync("api/Empleados/Guardar",empleado);
             var response = await result.Content.ReadFromJsonAsync<ResponseApi<int>>();
-            if (response.Exito == 1)
+            if (response!.Exito)
             {
                 return response.Datos;
             }
@@ -73,7 +73,7 @@ namespace BlazorApp.Service
         {
             var result = await _http.GetFromJsonAsync<ResponseApi<List<EmpleadoDTO>>>("api/Empleados/lista");
 
-            if (result.Exito == 1)
+            if (result!.Exito)
             {
                 return result.Datos;
             }
