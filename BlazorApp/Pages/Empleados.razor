@@ -37,7 +37,7 @@
 					<td align="center">$@item.Sueldo</td>
 					<td align="center">@item.FechaContrato.ToString("dd/MM/yyyy")</td>
 					<td align="center">
-						<a class="btn btn-primary btn-sm mb-3 oi oi-pencil" href="Empleado "></a>
+						<a class="btn btn-primary btn-sm mb-3 oi oi-pencil" href="Empleado/@item.IdEmpleado"></a>
 						<a class="btn btn-danger btn-sm mb-3 oi oi-trash" @onclick="(()=> Eliminar(item.IdEmpleado))"></a>
 					</td>
 				</tr>
@@ -52,8 +52,8 @@
 	protected override async Task OnInitializedAsync()
 	{
 		listaEmpleado = await empleadoService.Listar();
+	}
 
-	} 
 	private async Task Eliminar(int id)
 	{
 		var Resultado = await Swal.FireAsync(new SweetAlertOptions
@@ -72,9 +72,5 @@
 				listaEmpleado = listaEmpleado!.FindAll(e => e.IdEmpleado != id);
 			}
 		}
-	}
-	private async Task Editar(EmpleadoDTO empleado)
-	{
-		
 	}
 }

@@ -28,7 +28,7 @@ namespace BlazorApp.Service
 
         public async Task<EmpleadoDTO> Buscar(int id)
         {
-            var result = await _http.GetFromJsonAsync<ResponseApi<EmpleadoDTO>>("api/Empleados/buscar");
+            var result = await _http.GetFromJsonAsync<ResponseApi<EmpleadoDTO>>($"api/Empleados/Buscar/{id}");
 
             if (result.Exito == 1)
             {
